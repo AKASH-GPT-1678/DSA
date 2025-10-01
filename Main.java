@@ -1,53 +1,57 @@
-class Node {
-    int data;
-    Node next;
-    static int count = 0;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
-    public Node(int data) {
-        this.data = data;
-        this.next = null;
-        count++;
-    }
-}
+class Main {
+    public static Map<Integer, String> romanMap = new LinkedHashMap<>();
 
-public class Main {
-
-    public static void main(String[] args) {
-
-        System.out.println("Namaste Digital");
-
-        Node head = new Node(10);
-        Node current = head;
-
-        for (int i = 20; i <= 150; i += 10) {
-            current.next = new Node(i);
-            current = current.next;
-        }
-
-        current.next = new Node(1000);
-
-
-      
+    static {
+        romanMap.put(1000, "M");
+        romanMap.put(900, "CM");
+        romanMap.put(500, "D");
+        romanMap.put(400, "CD");
+        romanMap.put(100, "C");
+        romanMap.put(90, "XC");
+        romanMap.put(50, "L");
+        romanMap.put(40, "XL");
+        romanMap.put(10, "X");
+        romanMap.put(9, "IX");
+        romanMap.put(5, "V");
+        romanMap.put(4, "IV");
+        romanMap.put(1, "I");
     }
 
-    
+    public String remaiNingOnes(int number, int position) {
 
-    static Node inserAtEnd(Node list, int val) {
-        int count = 0;
-        Node head = list;
-        while (count < list.count) {
-            if (head.next != null) {
-                count++;
-                head = head.next;
-            } else {
-                head.next = new Node(val);
+        char firstDigit = Integer.toString(number).charAt(0);
+        String length = Integer.toString(number).toString();
+        String output;
+        if (number > Math.multiplyExact(1, position)
+                && number < Math.multiplyExact(5, position)) {
+            String first = romanMap.get(Math.multiplyExact(1, position));
 
-            }
+        } else if (number > Math.multiplyExact(5, position)
+                && number < Math.multiplyExact(10, position)) {
 
         }
 
-        Node empNode = new Node(100);
-        return empNode;
+        return "";
 
     }
+
+    public String foursandNine(int number, int position) {
+        char firstDigit = Integer.toString(number).charAt(0);
+        String output;
+
+        if (Character.getNumericValue(firstDigit) == 4) {
+            output = romanMap.get(number);
+
+        } else {
+            output = romanMap.get(number);
+
+        }
+
+        return output;
+
+    }
+
 }
