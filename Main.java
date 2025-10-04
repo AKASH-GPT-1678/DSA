@@ -5,6 +5,7 @@ class Main {
     public static Map<Integer, String> romanMap = new LinkedHashMap<>();
 
     static {
+
         romanMap.put(1000, "M");
         romanMap.put(900, "CM");
         romanMap.put(500, "D");
@@ -20,25 +21,42 @@ class Main {
         romanMap.put(1, "I");
     }
 
-    public String remaiNingOnes(int number, int position) {
+    public String returnValue(int number, int position) {
 
         char firstDigit = Integer.toString(number).charAt(0);
-        String length = Integer.toString(number).toString();
-        String output;
-        if (number > Math.multiplyExact(1, position)
-                && number < Math.multiplyExact(5, position)) {
-            String first = romanMap.get(Math.multiplyExact(1, position));
 
-        } else if (number > Math.multiplyExact(5, position)
+        int firstPosition = Math.multiplyExact(1, position);
+        int secondPosition = Math.multiplyExact(5, position);
+
+        StringBuilder output = new StringBuilder();
+        if (number >= firstPosition
+                && number < secondPosition) {
+            String first = romanMap.get(firstPosition);
+            for (int i = 1; i <= Character.getNumericValue(firstDigit); i++) {
+                output.append(first);
+            }
+
+        } else if (number >= secondPosition
                 && number < Math.multiplyExact(10, position)) {
+            number = number - secondPosition;
+            String first = romanMap.get(secondPosition);
+            output.append(first);
+
+            // fixed: only subtract while at least one `firstPosition` remains — prevents
+            // infinite loop.
+            while (number >= firstPosition) {
+                number = number - firstPosition;
+                output.append(romanMap.get(firstPosition));
+            }
 
         }
 
-        return "";
+        return output.toString();
 
     }
 
-    public String foursandNine(int number, int position) {
+    public String foursandNine(int number) {
+
         char firstDigit = Integer.toString(number).charAt(0);
         String output;
 
@@ -52,6 +70,33 @@ class Main {
 
         return output;
 
+    }
+
+    public String oneToNine(int number) {
+
+        StringBuilder results = new StringBuilder();
+        while (number != 0) {
+
+            char firstChar = Integer.toString(number).charAt(0);
+            int length = Integer.toString(number).length();
+            int Calculate = number - Math.multiplyExact(firstChar, (int) Math.pow(10, length - 1));
+            number = number - Calculate;
+            if (Integer.toString(number).charAt(0) == 4 || Integer.toString(number).charAt(0) == 9) {
+                String output = foursandNine(number);
+                results.append(output);
+                number = Calculate;
+                firstChar = Integer.toString(number).charAt(0);
+            } else {
+                String output = returnValue(number, (int) Math.pow(10, Integer.toString(number).length() - 1));
+                results.append(output);
+                number = Calculate;
+                firstChar = Integer.toString(number).charAt(0);
+
+            }
+
+        }
+
+        return results.toString();
     }
 
 }
