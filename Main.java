@@ -42,8 +42,6 @@ class Main {
             String first = romanMap.get(secondPosition);
             output.append(first);
 
-            // fixed: only subtract while at least one `firstPosition` remains — prevents
-            // infinite loop.
             while (number >= firstPosition) {
                 number = number - firstPosition;
                 output.append(romanMap.get(firstPosition));
@@ -72,16 +70,18 @@ class Main {
 
     }
 
-    public String oneToNine(int number) {
+    public String intToRoman(int number) {
 
         StringBuilder results = new StringBuilder();
         while (number != 0) {
 
             char firstChar = Integer.toString(number).charAt(0);
+            System.out.println(firstChar);
             int length = Integer.toString(number).length();
-            int Calculate = number - Math.multiplyExact(firstChar, (int) Math.pow(10, length - 1));
+            int Calculate = number
+                    - Math.multiplyExact(Character.getNumericValue(firstChar), (int) Math.pow(10, length - 1));
             number = number - Calculate;
-            if (Integer.toString(number).charAt(0) == 4 || Integer.toString(number).charAt(0) == 9) {
+            if (Character.getNumericValue(firstChar) == 4 || Character.getNumericValue(firstChar) == 9) {
                 String output = foursandNine(number);
                 results.append(output);
                 number = Calculate;
