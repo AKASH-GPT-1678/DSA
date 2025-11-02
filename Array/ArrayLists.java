@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class ArrayLists {
     public static void main(String[] args) {
 
-        ArrayList<Integer> array = new ArrayList<Integer>();
+        ArrayList<Integer> array = new ArrayList<Integer>(5);
 
         array.add(10);
         array.add(20);
@@ -19,6 +19,7 @@ public class ArrayLists {
         array.add(100);
 
         for (Integer integer : array) {
+            array.set(3, integer);
             System.out.println(integer);
             
         }
