@@ -1,33 +1,30 @@
-import java.math.BigInteger;
+class Valid {
+    public String addBinary(String a, String b) {
+        int greater = (a.length() >= b.length()) ? a.length() : b.length();
 
-public class Valid {
-    public static void main(String[] args) {
 
-        Valid newValid = new Valid();
-        int[] vals = { 12, 34 };
-        newValid.plusOne(vals);
+        String longer = (a.length() >= b.length()) ? a : b;
+        String shorter = (a.length() >= b.length()) ? b : a;
+        String result = String.format("%" + greater + "s", shorter).replace(' ', '0');
 
-    }
+        int carry = 0;
+        StringBuilder words = new StringBuilder();
 
-    public int[] plusOne(int[] digits) {
+        for (int i = greater - 1; i >= 0; i--) {
+            int A = longer.charAt(i) - '0';
+            int B = result.charAt(i) - '0';
 
-        StringBuilder values = new StringBuilder();
+            int val = A + B + carry;
 
-        for (int vals : digits) {
-            values.append(vals);
+            words.append(val % 2);
+            carry = val / 2;
         }
 
-        BigInteger bigNum = new BigInteger(values.toString());
-        bigNum.add(BigInteger.ONE);
-        String numStr = bigNum.toString();
-        int[] digitss = new int[numStr.length()];
-
-        for (int i = 0; i < numStr.length(); i++) {
-            digits[i] = numStr.charAt(i) - '0';
+        if (carry == 1) {
+            words.append('1');
         }
 
-        return digitss;
-
+        return words.reverse().toString();
     }
-
 }
+
