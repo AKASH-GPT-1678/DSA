@@ -3,12 +3,23 @@ public class Test {
 
     public static void main(String[] args){
 
-      Solution roman = new Solution();
-        System.out.println("MDCXCV = " + roman.romanToInt("MDCXCV"));         // 1695
-        System.out.println("CCCLXXXIX = " + roman.romanToInt("CCCLXXXIX"));   // 389
-        System.out.println("MMCCXLIV = " + roman.romanToInt("MMCCXLIV"));     // 2244
-        System.out.println("DCCCXC = " + roman.romanToInt("DCCCXC"));         // 890
-        System.out.println("CI = " + roman.romanToInt("CI"));         // 18
+        Palindrome newpalin = new Palindrome();
+        int[] testInputs = {
+                111111,
+                1000000001,
+                9889,
+                1221,
+                44444444,
+                12021,
+                100010,
+                1001001,
+                90000009,
+                2147447412
+        };
+
+        for (int num : testInputs) {
+            System.out.println(num + " → " + newpalin.isPalindrome(num));
+        }
 
 
     }
