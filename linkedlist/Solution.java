@@ -1,53 +1,38 @@
 package linkedlist;
 
 
+import java.util.HashSet;
+import java.util.Set;
 
 class Solution {
-    public static ListNode deleteDuplicates(ListNode head) {
+    public long maximumSubarraySum(int[] arr, int k) {
 
-        ListNode node = head;
-        while (node != null && node.next != null) {
-            if (node.val == node.next.val) node.next = node.next.next;
-            else {
-                node = node.next;
+        int n = arr.length;
+
+        int windowSum = 0;
+
+
+        for (int i = 0; i < k; i++) {
+            windowSum += arr[i];
+        }
+
+        long maxSum = windowSum;
+
+
+        for (int i = k; i < n; i++) {
+
+
+            windowSum -= arr[i - k];
+
+
+            windowSum += arr[i];
+
+
+            if (windowSum > maxSum) {
+                maxSum = windowSum;
             }
         }
-        return head;
 
-
-    }
-    public int removeDuplicates(int[] nums) {
-
-        int i = 0;
-        int j = 0;
-        return 0;
-
-        
-
-
-    }
-    public static void main(String[] args){
-        System.out.println("Namaste");
-
-        ListNode node = new ListNode(1);
-
-        node.next = new ListNode(1);
-        node.next.next = new ListNode(2);
-        node.next.next.next = new ListNode(2);
-        node.next.next.next.next = new ListNode(3);
-        node.next.next.next.next.next = new ListNode(4);
-        node.next.next.next.next.next.next = new ListNode(4);
-        node.next.next.next.next.next.next.next = new ListNode(5);
-        node.next.next.next.next.next.next.next.next = new ListNode(5);
-        node.next.next.next.next.next.next.next.next.next = new ListNode(5);
-
-        ListNode results = deleteDuplicates(node);
-        while (results != null) {
-            System.out.print(results.val + " -> ");
-            results = results.next;
-        }
-
-        System.out.println("null");
-
+        return maxSum;
     }
 }
